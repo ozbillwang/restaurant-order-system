@@ -20,13 +20,11 @@
     "watch-scripts": "watchify app/scripts/entry.js -d -v --outfile dist/main.js",
     "watch-assets": "onchange 'app/assets/**/*.*' -- npm run build-assets",
     "watch": "parallelshell 'npm run watch-html' 'npm run watch-assets' 'npm run watch-sass' 'npm run watch-scripts'",
-    "dev-server-start": "http-server ./dist",
+    "dev-server-start": "npx http-server ./dist",
     "dev-server-watch": "npm run dev-server-start && onchange 'dist/**/*.*' -- npm run dev-server-start",
     "start": "npm run build && parallelshell 'npm run watch' 'npm run dev-server-watch'",
     "prebuild": "if [ ! -d app ]; then mkdir app; fi && if [ ! -f app/index.html ]; then printf '<!DOCTYPE html>%s\n<html>\n\t<head>\n\t\t<meta charset=\"utf-8\">\n\t\t<title></title>\n\t\t<link media=\"screen\" href=\"main.css\" rel=\"stylesheet\"/>\n\t</head>\n\t<body>\n\n\t\t<script src=\"main.js\" charset=\"utf-8\"></script>\n\t</body>\n</html>' >> app/index.html; fi && if [ ! -d app/scripts ]; then mkdir app/scripts; fi && if [ ! -f app/scripts/entry.js ]; then touch app/scripts/entry.js; fi && if [ ! -d app/scss ]; then mkdir app/scss; fi && if [ ! -f app/scss/main.scss ]; then touch app/scss/main.scss; fi && if [ ! -d app/assets ]; then mkdir app/assets; fi",
-    "deploy": "git subtree push --prefix dist origin gh-pages",
-    "preinstall": "if ! command -v http-server; then npm install -g http-server; fi",
-    "postinstall": "echo '.sass-cache' >> .gitignore && echo 'dist/main.css.map' >> .gitignore && echo 'node_modules' >> .gitignore && npm start"
+    "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "browserify": {
     "transform": [
@@ -42,19 +40,21 @@
   "author": "nicerhugs",
   "license": "MIT",
   "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
-    "browserify": "^13.0.1",
-    "onchange": "^2.5.0",
+    "browserify": "^13.3.0",
+    "onchange": "^5.2.0",
     "parallelshell": "^2.0.0",
-    "watchify": "^3.7.0"
+    "watchify": "^3.11.1"
   },
   "dependencies": {
-    "backbone": "^1.3.3",
-    "jquery": "^3.1.0",
-    "jquery-ui": "^1.12.0",
-    "moment": "^2.14.1",
+    "backbone": "^1.4.0",
+    "http-server": "^0.11.1",
+    "jquery": "^3.4.0",
+    "jquery-ui": "^1.12.1",
+    "moment": "^2.24.0",
     "normalize.scss": "^0.1.0",
-    "underscore": "^1.8.3"
+    "sass": "^1.18.0",
+    "underscore": "^1.9.1"
   }
 }
